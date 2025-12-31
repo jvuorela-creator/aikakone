@@ -7,15 +7,15 @@ wikipedia.set_lang("fi")
 
 # Kuvat (käytetään varmoja linkkejä tai paikallisia tiedostoja)
 # Jos kuvat eivät näy, voit kommentoida nämä rivit pois (laita # eteen)
-KUVA_KARTTA = "https://upload.wikimedia.org/wikipedia/commons/e/ea/Suomen_kartta_1881.jpg"
-KUVA_KIRKONKIRJA = "https://upload.wikimedia.org/wikipedia/commons/7/77/Kirkonkirja_esimerkki.jpg" 
+KUVA_KARTTA = "kuva2x.png"
+KUVA_KIRKONKIRJA = "kuva1x.png" 
 
 def main():
     # --- Sivupalkki ---
     with st.sidebar:
         # Näytetään kuva vain jos linkki toimii, muuten ohitetaan virhe
         try:
-            st.image(KUVA_KIRKONKIRJA, caption="Ote kirkonkirjasta")
+            st.image(KUVA_KIRKONKIRJA, caption="Sivun tarjoaa SUKU -lehti")
         except:
             st.write("Kuvaa ei voitu ladata.")
             
@@ -27,7 +27,7 @@ def main():
     
     with col1:
         try:
-            st.image(KUVA_KARTTA, caption="Historiallinen kartta")
+            st.image(KUVA_KARTTA, caption="SUKU - lehti sukututkijoille")
         except:
             st.write("Karttakuvaa ei voitu ladata.")
 
@@ -97,3 +97,4 @@ def hae_tiedot(vuosi):
 
 if __name__ == "__main__":
     main()
+
