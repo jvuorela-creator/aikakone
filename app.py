@@ -79,7 +79,7 @@ def hae_tiedot(vuosi):
                         ote = teksti[alku_indeksi : alku_indeksi + 15000]
                 else:
                     # Jos koko "Tapahtumia" sanaa ei löydy, näytetään artikkelin alku
-                    ote = teksti[:5000]
+                    ote = teksti[:15000]
 
                 # --- ÄLYKÄS LEIKKAUS PÄÄTTYY ---
 
@@ -99,6 +99,7 @@ def hae_tiedot(vuosi):
 if __name__ == "__main__":
 
     main()
+
 
 
 
