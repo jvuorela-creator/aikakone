@@ -59,10 +59,10 @@ def hae_tiedot(vuosi):
                 # Etsitään "Tapahtumia"-kohta
                 if "Tapahtumia" in teksti:
                     alku = teksti.find("Tapahtumia")
-                    # Otetaan reilusti tekstiä (3000 merkkiä), jotta luettavaa riittää
-                    ote = teksti[alku:alku+3000] 
+                    # Otetaan reilusti tekstiä (1500 merkkiä), jotta luettavaa riittää
+                    ote = teksti[alku:alku+1500] 
                 else:
-                    ote = teksti[:2000]
+                    ote = teksti[:1000]
 
                 # TÄMÄ ON MUUTETTU KOHTA:
                 # Käytetään text_area-komentoa ja height-asetusta.
@@ -82,3 +82,4 @@ def hae_tiedot(vuosi):
 if __name__ == "__main__":
 
     main()
+
