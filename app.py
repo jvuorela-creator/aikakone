@@ -8,7 +8,7 @@ wikipedia.set_lang("fi")
 # Kuvat (käytetään varmoja linkkejä tai paikallisia tiedostoja)
 # Jos kuvat eivät näy, voit kommentoida nämä rivit pois (laita # eteen)
 KUVA_KARTTA = "kuva2x.png"
-KUVA_KIRKONKIRJA = "kuva1x.png" 
+KUVA_KIRKONKIRJA = "kuvax1.png" 
 
 def main():
     # --- Sivupalkki ---
@@ -97,4 +97,5 @@ def hae_tiedot(vuosi):
 
 if __name__ == "__main__":
     main()
+
 
