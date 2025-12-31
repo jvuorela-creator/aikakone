@@ -45,7 +45,7 @@ def hae_tiedot(vuosi):
             sivu = wikipedia.page(str(vuosi))
             
             # Jaetaan tulos kahteen sarakkeeseen
-            c1, c2 = st.columns(2)
+            c1, c2 = st.columns([1, 1])
 
             with c1:
                 st.header(f"🇫🇮 Suomi ja maailma {vuosi}")
@@ -53,17 +53,26 @@ def hae_tiedot(vuosi):
                 st.markdown(f"👉 **Lue lisää Wikipediasta:** [{sivu.url}]({sivu.url})")
 
             with c2:
-                # Näytetään lisätietoja jos löytyy
                 teksti = sivu.content
                 st.subheader("📜 Poimintoja arkistoista")
                 
-                # Yritetään löytää "Tapahtumia" tai "Syntyneitä" osioita
+                # Etsitään "Tapahtumia"-kohta
                 if "Tapahtumia" in teksti:
                     alku = teksti.find("Tapahtumia")
-                    ote = teksti[alku:alku+1500] + "..."
-                    st.info(ote)
+                    # Otetaan reilusti tekstiä (3000 merkkiä), jotta luettavaa riittää
+                    ote = teksti[alku:alku+3000] 
                 else:
-                    st.info(teksti[:1000] + "...")
+                    ote = teksti[:2000]
+
+                # TÄMÄ ON MUUTETTU KOHTA:
+                # Käytetään text_area-komentoa ja height-asetusta.
+                # height=400 määrää laatikon korkeuden pikseleinä.
+                st.text_area(
+                    label="Tapahtumaluettelo:",
+                    value=ote,
+                    height=400,  # Tässä määritellään vierityskehyksen korkeus
+                    disabled=True # Estää tekstin muokkaamisen (tekee siitä "lukutilan")
+                )
 
         except wikipedia.exceptions.PageError:
             st.error(f"Vuodelta {vuosi} ei löytynyt suoraa artikkelia.")
@@ -71,4 +80,5 @@ def hae_tiedot(vuosi):
             st.error(f"Virhe haettaessa tietoja: {e}")
 
 if __name__ == "__main__":
+
     main()
