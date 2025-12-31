@@ -70,7 +70,7 @@ def hae_tiedot(vuosi):
                 st.text_area(
                     label="Tapahtumaluettelo:",
                     value=ote,
-                    height=400,  # Tässä määritellään vierityskehyksen korkeus
+                    height=1200,  # Tässä määritellään vierityskehyksen korkeus
                     disabled=True # Estää tekstin muokkaamisen (tekee siitä "lukutilan")
                 )
 
@@ -82,4 +82,5 @@ def hae_tiedot(vuosi):
 if __name__ == "__main__":
 
     main()
+
 
