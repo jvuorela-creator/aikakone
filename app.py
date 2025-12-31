@@ -87,7 +87,7 @@ def hae_tiedot(vuosi):
                     label="Selaa vuoden tapahtumia:",
                     value=lopullinen_teksti,
                     height=600,  # Iso ikkuna
-                    disabled=True
+                    disabled=False
                 )
 
         except wikipedia.exceptions.PageError:
@@ -97,6 +97,7 @@ def hae_tiedot(vuosi):
 
 if __name__ == "__main__":
     main()
+
 
 
 
