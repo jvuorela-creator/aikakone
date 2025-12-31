@@ -43,6 +43,7 @@ def hae_tiedot(vuosi):
     with st.spinner(f'Tutkitaan historiankirjoja vuodelta {vuosi}...'):
         try:
             sivu = wikipedia.page(str(vuosi))
+            teksti = sivu.content
             
             # Jaetaan tulos kahteen sarakkeeseen
             c1, c2 = st.columns([1, 1])
@@ -53,25 +54,41 @@ def hae_tiedot(vuosi):
                 st.markdown(f"👉 **Lue lisää Wikipediasta:** [{sivu.url}]({sivu.url})")
 
             with c2:
-                teksti = sivu.content
-                st.subheader("📜 Poimintoja arkistoista")
+                st.subheader("📜 Vuoden tapahtumat")
                 
-                # Etsitään "Tapahtumia"-kohta
-                if "Tapahtumia" in teksti:
-                    alku = teksti.find("Tapahtumia")
-                    # Otetaan reilusti tekstiä (1500 merkkiä), jotta luettavaa riittää
-                    ote = teksti[alku:alku+1500] 
-                else:
-                    ote = teksti[:1000]
+                # --- ÄLYKÄS LEIKKAUS ALKAA TÄSTÄ ---
+                
+                # 1. Etsitään mistä "Tapahtumia"-osio alkaa
+                alku_indeksi = teksti.find("Tapahtumia")
+                
+                if alku_indeksi != -1:
+                    # 2. Etsitään mihin se loppuu. Yleensä seuraava otsikko on "Syntyneitä".
+                    # Jos "Syntyneitä" ei löydy, kokeillaan "Kuolleita".
+                    loppu_indeksi = teksti.find("Syntyneitä", alku_indeksi)
+                    
+                    if loppu_indeksi == -1:
+                        loppu_indeksi = teksti.find("Kuolleita", alku_indeksi)
 
-                # TÄMÄ ON MUUTETTU KOHTA:
-                # Käytetään text_area-komentoa ja height-asetusta.
-                # height=400 määrää laatikon korkeuden pikseleinä.
+                    # 3. Leikataan teksti talteen
+                    if loppu_indeksi != -1:
+                        # Otetaan kaikki tapahtumien ja syntyneiden välistä
+                        ote = teksti[alku_indeksi:loppu_indeksi]
+                    else:
+                        # Jos loppukohtaa ei löydy, otetaan reilusti tekstiä (15 000 merkkiä)
+                        # Tämä riittää varmasti loppuvuoteen asti.
+                        ote = teksti[alku_indeksi : alku_indeksi + 15000]
+                else:
+                    # Jos koko "Tapahtumia" sanaa ei löydy, näytetään artikkelin alku
+                    ote = teksti[:5000]
+
+                # --- ÄLYKÄS LEIKKAUS PÄÄTTYY ---
+
+                # Näytetään teksti vieritettävässä laatikossa
                 st.text_area(
                     label="Tapahtumaluettelo:",
                     value=ote,
-                    height=1200,  # Tässä määritellään vierityskehyksen korkeus
-                    disabled=True # Estää tekstin muokkaamisen (tekee siitä "lukutilan")
+                    height=500,  # Kasvatettu hieman korkeutta
+                    disabled=True
                 )
 
         except wikipedia.exceptions.PageError:
@@ -82,5 +99,6 @@ def hae_tiedot(vuosi):
 if __name__ == "__main__":
 
     main()
+
 
 
